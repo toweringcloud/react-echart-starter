@@ -1,6 +1,8 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const HeatmapChartExample: React.FC = () => {
   const hours = [
     "12a",
@@ -259,7 +261,8 @@ const HeatmapChartExample: React.FC = () => {
     ],
   };
 
-  return <ReactECharts option={options} style={{ height: 500 }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default HeatmapChartExample;

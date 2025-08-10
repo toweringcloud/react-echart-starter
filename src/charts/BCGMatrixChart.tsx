@@ -1,6 +1,8 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const BcgMatrixChartExample: React.FC = () => {
   // [상대적 시장 점유율, 시장 성장률, 매출액, 제품명]
   const data: ChartDataItem[] = [
@@ -61,9 +63,9 @@ const BcgMatrixChartExample: React.FC = () => {
     series: ScatterSeries[];
   }
 
-  const option: ChartOption = {
+  const options: ChartOption = {
     title: { text: "BCG 매트릭스 (Growth-Share Matrix)" },
-    grid: { left: "10%", right: "10%", bottom: "10%", top: "10%" },
+    grid: { left: "10%", right: "10%", bottom: "10%", top: "15%" },
     xAxis: {
       type: "value",
       name: "상대적 시장 점유율",
@@ -107,7 +109,8 @@ const BcgMatrixChartExample: React.FC = () => {
     ],
   };
 
-  return <ReactECharts option={option} style={{ height: "600px" }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default BcgMatrixChartExample;

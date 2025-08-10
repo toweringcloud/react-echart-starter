@@ -1,6 +1,8 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const GraphChartExample: React.FC = () => {
   const nodes = [
     { id: "0", name: "React", symbolSize: 45, category: 0 },
@@ -35,7 +37,7 @@ const GraphChartExample: React.FC = () => {
     { name: "인프라" },
   ];
 
-  const option = {
+  const options = {
     title: {
       text: "기술 생태계 관계도",
       subtext: "Default layout",
@@ -82,7 +84,8 @@ const GraphChartExample: React.FC = () => {
     ],
   };
 
-  return <ReactECharts option={option} style={{ height: "600px" }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default GraphChartExample;

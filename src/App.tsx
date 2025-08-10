@@ -1,13 +1,10 @@
-import { useState } from "react";
-
-import Snb from "./layout/Snb";
-import Contents from "./layout/Contents";
+import { useEffect, useRef, useState } from "react";
 
 import Bar2DChartExample from "./charts/StackedBarChart";
 import Bar3DChartExample from "./charts/Bar3DChart";
 import BcgMatrixChartExample from "./charts/BCGMatrixChart";
 import BscRadarChartExample from "./charts/RadarChart";
-import CandlestickChartExample from "./charts/CandleStickChart";
+import CandlestickChartExample from "./charts/CandlestickChart";
 import CustomerRfmChartExample from "./charts/BubbleChart";
 import FunnelChartExample from "./charts/FunnelChart";
 import GraphChartExample from "./charts/GraphChart";
@@ -21,11 +18,32 @@ import RiskMatrixChartExample from "./charts/RiskMatirixChart";
 import SankeyDiagramExample from "./charts/SankeyDiagram";
 import ScatterChartExample from "./charts/ScatterChart";
 import SunburstChartExample from "./charts/SunburstChart";
-import TreemapChartExample from "./charts/TreeMapChart";
+import TreemapChartExample from "./charts/TreemapChart";
 import WordCloudChartExample from "./charts/WordCloudChart";
 
+import Contents from "./layouts/Contents";
+import Sidebar from "./layouts/Sidebar";
+
+import useDimensionStore from "./stores/dimension.store";
+
 function App() {
-  const [selectedMenu, setSelectedMenu] = useState("Bar Chart");
+  const [selectedMenu, setSelectedMenu] = useState("2D Bar Chart");
+  const { setDimensions } = useDimensionStore();
+  const chartContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const container = chartContainerRef.current;
+    if (container) {
+      const resizeObserver = new ResizeObserver((entries) => {
+        if (entries[0]) {
+          const { width, height } = entries[0].contentRect;
+          setDimensions(width, height);
+        }
+      });
+      resizeObserver.observe(container);
+      return () => resizeObserver.disconnect();
+    }
+  }, [setDimensions]);
 
   const renderChart = () => {
     switch (selectedMenu) {
@@ -76,10 +94,15 @@ function App() {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <Snb onSelectMenu={setSelectedMenu} />
+      <Sidebar selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
       <Contents>
-        <h1 className="text-2xl font-bold mb-4">{selectedMenu}</h1>
-        {renderChart()}
+        <span className="text-xl font-bold mb-4">{selectedMenu}</span>
+        <div
+          ref={chartContainerRef}
+          className="bg-white w-full h-full p-4 rounded-lg shadow-md overflow-hidden"
+        >
+          {renderChart()}
+        </div>
       </Contents>
     </div>
   );

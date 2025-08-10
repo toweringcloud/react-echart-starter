@@ -1,6 +1,8 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const PieChartExample: React.FC = () => {
   const options = {
     tooltip: {
@@ -32,7 +34,8 @@ const PieChartExample: React.FC = () => {
     ],
   };
 
-  return <ReactECharts option={options} style={{ height: 400 }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default PieChartExample;

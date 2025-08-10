@@ -2,6 +2,8 @@ import React from "react";
 import ReactECharts from "echarts-for-react";
 import "echarts-wordcloud";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const WordCloudChartExample: React.FC = () => {
   const keywords = [
     { name: "AI", value: 28 },
@@ -73,7 +75,8 @@ const WordCloudChartExample: React.FC = () => {
     ],
   };
 
-  return <ReactECharts option={options} style={{ height: 400 }} />;
+  const { height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width: 500, height }} />;
 };
 
 export default WordCloudChartExample;

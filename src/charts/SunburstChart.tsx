@@ -1,6 +1,8 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const SunburstChartExample: React.FC = () => {
   const data = [
     {
@@ -55,7 +57,7 @@ const SunburstChartExample: React.FC = () => {
     },
   ];
 
-  const option = {
+  const options = {
     series: {
       type: "sunburst",
       data: data,
@@ -66,7 +68,8 @@ const SunburstChartExample: React.FC = () => {
     },
   };
 
-  return <ReactECharts option={option} style={{ height: "600px" }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default SunburstChartExample;

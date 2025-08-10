@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 import "echarts-gl";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const Bar3DChartExample: React.FC = () => {
   const hours = [
     "12a",
@@ -43,7 +45,7 @@ const Bar3DChartExample: React.FC = () => {
     setData(generatedData);
   }, [days.length, hours.length]);
 
-  const option = {
+  const options = {
     tooltip: {},
     visualMap: {
       max: 60,
@@ -115,7 +117,8 @@ const Bar3DChartExample: React.FC = () => {
     ],
   };
 
-  return <ReactECharts option={option} style={{ height: "600px" }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default Bar3DChartExample;

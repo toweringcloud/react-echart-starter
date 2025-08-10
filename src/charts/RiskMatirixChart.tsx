@@ -1,6 +1,8 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const RiskMatrixChartExample: React.FC = () => {
   const risks = [
     "공급망",
@@ -23,9 +25,9 @@ const RiskMatrixChartExample: React.FC = () => {
     [2, 0, 4], // 규제 변경: 높음, 매우 낮음
   ];
 
-  const option = {
+  const options = {
     title: { text: "리스크 평가 매트릭스" },
-    grid: { height: "60%", top: "10%", right: "10%", left: "15%" },
+    grid: { height: "60%", top: "15%", right: "10%", left: "15%" },
     xAxis: {
       type: "category",
       data: impacts,
@@ -75,7 +77,8 @@ const RiskMatrixChartExample: React.FC = () => {
     ],
   };
 
-  return <ReactECharts option={option} style={{ height: "600px" }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default RiskMatrixChartExample;

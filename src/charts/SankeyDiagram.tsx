@@ -1,8 +1,10 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const SankeyDiagramExample: React.FC = () => {
-  const option = {
+  const options = {
     title: {
       text: "사용자 방문 경로 분석",
     },
@@ -39,7 +41,8 @@ const SankeyDiagramExample: React.FC = () => {
     ],
   };
 
-  return <ReactECharts option={option} style={{ height: "600px" }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default SankeyDiagramExample;

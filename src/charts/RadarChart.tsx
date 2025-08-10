@@ -1,8 +1,10 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const BscRadarChartExample: React.FC = () => {
-  const option = {
+  const options = {
     title: { text: "균형성과표(BSC) 분석" },
     legend: { data: ["목표치", "2025년 2분기 실적"], bottom: 5 },
     radar: {
@@ -39,7 +41,8 @@ const BscRadarChartExample: React.FC = () => {
     ],
   };
 
-  return <ReactECharts option={option} style={{ height: "600px" }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default BscRadarChartExample;

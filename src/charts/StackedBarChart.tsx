@@ -1,7 +1,8 @@
-import React from "react";
 import ReactECharts from "echarts-for-react";
 
-const StackedBarChartExample: React.FC = () => {
+import useDimensionStore from "../stores/dimension.store";
+
+const StackedBarChartExample = () => {
   const options = {
     tooltip: {
       trigger: "axis",
@@ -65,7 +66,8 @@ const StackedBarChartExample: React.FC = () => {
     ],
   };
 
-  return <ReactECharts option={options} style={{ height: 400 }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default StackedBarChartExample;

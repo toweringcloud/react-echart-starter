@@ -2,11 +2,13 @@ import React from "react";
 import ReactECharts from "echarts-for-react";
 import * as echarts from "echarts";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const KpiForecastChartExample: React.FC = () => {
-  const option = {
+  const options = {
     title: {
       text: "분기별 매출 실적 및 예측",
-      subtext: "실선: 실제 매출, 점선: 목표, 음영: 예측 범위",
+      // subtext: "실선: 실제 매출, 점선: 목표, 음영: 예측 범위",
     },
     tooltip: {
       trigger: "axis",
@@ -18,9 +20,11 @@ const KpiForecastChartExample: React.FC = () => {
       },
     },
     legend: {
+      top: "20%",
       data: ["실제 매출", "목표 매출", "예측 매출"],
     },
     grid: {
+      top: "20%",
       left: "3%",
       right: "4%",
       bottom: "3%",
@@ -103,7 +107,9 @@ const KpiForecastChartExample: React.FC = () => {
       },
     ],
   };
-  return <ReactECharts option={option} style={{ height: "600px" }} />;
+
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default KpiForecastChartExample;

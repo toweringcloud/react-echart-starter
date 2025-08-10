@@ -1,6 +1,8 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const CustomerRfmChartExample: React.FC = () => {
   // [Recency(낮을수록 좋음), Frequency, Monetary, 고객 ID]
   type RfmKey = "Champions" | "Loyal Customers" | "At-Risk" | "Lost";
@@ -62,11 +64,12 @@ const CustomerRfmChartExample: React.FC = () => {
     },
   }));
 
-  const option = {
+  const options = {
     title: { text: "RFM 고객 세분화 분석" },
-    grid: { left: "10%", right: "7%", bottom: "10%" },
+    grid: { left: "10%", right: "7%", bottom: "10%", top: "17%" },
     legend: {
-      right: "10%",
+      top: "7%",
+      right: "5%",
       data: Object.keys(data),
     },
     xAxis: {
@@ -90,7 +93,8 @@ const CustomerRfmChartExample: React.FC = () => {
     series: series,
   };
 
-  return <ReactECharts option={option} style={{ height: "600px" }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default CustomerRfmChartExample;

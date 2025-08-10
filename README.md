@@ -1,2 +1,3 @@
 # react-echart-starter
-react chart challenge using apache echart
+
+vite + react based interactive chart ui examples using echart

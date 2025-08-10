@@ -1,6 +1,8 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 
+import useDimensionStore from "../stores/dimension.store";
+
 const ParallelChartExample: React.FC = () => {
   // 데이터 출처: https://ecomfe.github.io/echarts-examples/examples/data/asset/data/nutrients.json (가공)
   const data = [
@@ -24,7 +26,7 @@ const ParallelChartExample: React.FC = () => {
     { name: "acceleration", index: 5, text: "가속력" },
   ];
 
-  const option = {
+  const options = {
     parallelAxis: [
       { dim: 1, name: schema[1].text, min: 4, max: 8 },
       { dim: 2, name: schema[2].text, min: 0, max: 500 },
@@ -41,7 +43,8 @@ const ParallelChartExample: React.FC = () => {
     },
   };
 
-  return <ReactECharts option={option} style={{ height: "600px" }} />;
+  const { width, height } = useDimensionStore();
+  return <ReactECharts option={options} style={{ width, height }} />;
 };
 
 export default ParallelChartExample;
